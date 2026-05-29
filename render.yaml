@@ -258,4 +258,6 @@ projects:
             plan: basic-256mb
             region: oregon
             databaseName: dify
+            # Pin PG 16: Dify's uuidv7 migration conflicts with PostgreSQL 18's built-in uuidv7().
+            postgresMajorVersion: "16"
             ipAllowList: []
