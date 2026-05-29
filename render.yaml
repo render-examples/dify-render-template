@@ -1,0 +1,262 @@
+# yaml-language-server: $schema=https://render.com/schema/render.yaml.json
+#
+# Dify on Render — one-click template (gallery)
+# Upstream: https://github.com/langgenius/dify
+# Images: https://hub.docker.com/u/langgenius
+#
+# Pattern: image-wrapper (official langgenius/* images; no source build on Render)
+
+previews:
+  generation: off
+
+projects:
+  - name: dify-render-template
+    environments:
+      - name: production
+        services:
+          # ── API (Flask + Celery broker client) ─────────────────────────────
+          - type: web
+            name: dify-api
+            runtime: image
+            plan: standard
+            region: oregon
+            image:
+              url: docker.io/langgenius/dify-api:1.14.2
+            healthCheckPath: /health
+            initialDeployHook: psql $DATABASE_URL -c 'CREATE EXTENSION IF NOT EXISTS vector;'
+            disk:
+              name: dify-api-storage
+              mountPath: /app/api/storage
+              sizeGB: 10
+            envVars:
+              - key: MODE
+                value: api
+              - key: DEPLOY_ENV
+                value: PRODUCTION
+              - key: MIGRATION_ENABLED
+                value: "true"
+              - key: LOG_LEVEL
+                value: INFO
+              - key: SECRET_KEY
+                generateValue: true
+              - key: INIT_PASSWORD
+                sync: false
+              - key: CONSOLE_API_URL
+                fromService:
+                  name: dify-api
+                  type: web
+                  envVarKey: RENDER_EXTERNAL_URL
+              - key: SERVICE_API_URL
+                fromService:
+                  name: dify-api
+                  type: web
+                  envVarKey: RENDER_EXTERNAL_URL
+              - key: FILES_URL
+                fromService:
+                  name: dify-api
+                  type: web
+                  envVarKey: RENDER_EXTERNAL_URL
+              - key: INTERNAL_FILES_URL
+                fromService:
+                  name: dify-api
+                  type: web
+                  envVarKey: RENDER_EXTERNAL_URL
+              - key: CONSOLE_WEB_URL
+                fromService:
+                  name: dify-web
+                  type: web
+                  envVarKey: RENDER_EXTERNAL_URL
+              - key: APP_WEB_URL
+                fromService:
+                  name: dify-web
+                  type: web
+                  envVarKey: RENDER_EXTERNAL_URL
+              - key: DATABASE_URL
+                fromDatabase:
+                  name: dify-db
+                  property: connectionString
+              - key: DB_USERNAME
+                fromDatabase:
+                  name: dify-db
+                  property: user
+              - key: DB_PASSWORD
+                fromDatabase:
+                  name: dify-db
+                  property: password
+              - key: DB_HOST
+                fromDatabase:
+                  name: dify-db
+                  property: host
+              - key: DB_PORT
+                fromDatabase:
+                  name: dify-db
+                  property: port
+              - key: DB_DATABASE
+                fromDatabase:
+                  name: dify-db
+                  property: database
+              - key: REDIS_HOST
+                fromService:
+                  name: dify-kv
+                  type: keyvalue
+                  property: host
+              - key: REDIS_PORT
+                fromService:
+                  name: dify-kv
+                  type: keyvalue
+                  property: port
+              - key: CELERY_BROKER_URL
+                fromService:
+                  name: dify-kv
+                  type: keyvalue
+                  property: connectionString
+              - key: VECTOR_STORE
+                value: pgvector
+              - key: PGVECTOR_HOST
+                fromDatabase:
+                  name: dify-db
+                  property: host
+              - key: PGVECTOR_PORT
+                fromDatabase:
+                  name: dify-db
+                  property: port
+              - key: PGVECTOR_USER
+                fromDatabase:
+                  name: dify-db
+                  property: user
+              - key: PGVECTOR_PASSWORD
+                fromDatabase:
+                  name: dify-db
+                  property: password
+              - key: PGVECTOR_DATABASE
+                fromDatabase:
+                  name: dify-db
+                  property: database
+              - key: STORAGE_TYPE
+                value: opendal
+              - key: OPENDAL_SCHEME
+                value: fs
+              - key: OPENDAL_FS_ROOT
+                value: storage
+
+          # ── Celery worker ─────────────────────────────────────────────────
+          - type: worker
+            name: dify-worker
+            runtime: image
+            plan: standard
+            region: oregon
+            image:
+              url: docker.io/langgenius/dify-api:1.14.2
+            envVars:
+              - key: MODE
+                value: worker
+              - key: DEPLOY_ENV
+                value: PRODUCTION
+              - key: SECRET_KEY
+                fromService:
+                  name: dify-api
+                  type: web
+                  envVarKey: SECRET_KEY
+              - key: DB_USERNAME
+                fromDatabase:
+                  name: dify-db
+                  property: user
+              - key: DB_PASSWORD
+                fromDatabase:
+                  name: dify-db
+                  property: password
+              - key: DB_HOST
+                fromDatabase:
+                  name: dify-db
+                  property: host
+              - key: DB_PORT
+                fromDatabase:
+                  name: dify-db
+                  property: port
+              - key: DB_DATABASE
+                fromDatabase:
+                  name: dify-db
+                  property: database
+              - key: DATABASE_URL
+                fromDatabase:
+                  name: dify-db
+                  property: connectionString
+              - key: REDIS_HOST
+                fromService:
+                  name: dify-kv
+                  type: keyvalue
+                  property: host
+              - key: REDIS_PORT
+                fromService:
+                  name: dify-kv
+                  type: keyvalue
+                  property: port
+              - key: CELERY_BROKER_URL
+                fromService:
+                  name: dify-kv
+                  type: keyvalue
+                  property: connectionString
+              - key: VECTOR_STORE
+                value: pgvector
+              - key: PGVECTOR_HOST
+                fromDatabase:
+                  name: dify-db
+                  property: host
+              - key: PGVECTOR_PORT
+                fromDatabase:
+                  name: dify-db
+                  property: port
+              - key: PGVECTOR_USER
+                fromDatabase:
+                  name: dify-db
+                  property: user
+              - key: PGVECTOR_PASSWORD
+                fromDatabase:
+                  name: dify-db
+                  property: password
+              - key: PGVECTOR_DATABASE
+                fromDatabase:
+                  name: dify-db
+                  property: database
+              - key: STORAGE_TYPE
+                value: opendal
+              - key: OPENDAL_SCHEME
+                value: fs
+              - key: OPENDAL_FS_ROOT
+                value: storage
+
+          # ── Web console (Next.js) ───────────────────────────────────────────
+          - type: web
+            name: dify-web
+            runtime: image
+            plan: starter
+            region: oregon
+            image:
+              url: docker.io/langgenius/dify-web:1.14.2
+            envVars:
+              - key: CONSOLE_API_URL
+                fromService:
+                  name: dify-api
+                  type: web
+                  envVarKey: RENDER_EXTERNAL_URL
+              - key: APP_API_URL
+                fromService:
+                  name: dify-api
+                  type: web
+                  envVarKey: RENDER_EXTERNAL_URL
+
+          # ── Key Value (Celery broker + cache) ───────────────────────────────
+          - type: keyvalue
+            name: dify-kv
+            plan: starter
+            region: oregon
+            maxmemoryPolicy: allkeys-lru
+            ipAllowList: []
+
+        databases:
+          - name: dify-db
+            plan: basic-256mb
+            region: oregon
+            databaseName: dify
+            postgresMajorVersion: "16"
+            ipAllowList: []

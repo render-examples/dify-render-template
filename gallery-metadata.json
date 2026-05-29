@@ -1,0 +1,22 @@
+{
+  "name": "Dify",
+  "slug": "dify",
+  "category": "AI / Agents",
+  "pitch": "Self-host Dify on Render: LLM apps, RAG, and agent workflows with managed Postgres, Key Value, and Celery.",
+  "repo": "https://github.com/render-examples/dify-render-template",
+  "upstream": "https://github.com/langgenius/dify",
+  "license_template": "MIT",
+  "license_upstream": "Apache-2.0",
+  "estimated_monthly_cost_usd": 85,
+  "resources": [
+    { "type": "web", "plan": "standard", "notes": "dify-api image" },
+    { "type": "web", "plan": "starter", "notes": "dify-web image" },
+    { "type": "worker", "plan": "standard", "notes": "dify-worker Celery" },
+    { "type": "keyvalue", "plan": "starter", "notes": "Celery broker + cache" },
+    { "type": "postgres", "plan": "basic-256mb", "notes": "app data + pgvector" },
+    { "type": "disk", "sizeGB": 10, "notes": "API uploads at /app/api/storage" }
+  ],
+  "required_secrets": ["INIT_PASSWORD"],
+  "generated_secrets": ["SECRET_KEY"],
+  "contact_email": ""
+}

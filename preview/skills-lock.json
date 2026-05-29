@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "skills": {
+    "render-create-template": {
+      "source": "renderinc/dx-process-and-kb",
+      "sourceType": "github",
+      "skillPath": "skills/render-create-template/SKILL.md",
+      "computedHash": "e151e29d781b2d03794b230ec68c6d0982c7318e6303adcfe7b56b55f54899bc"
+    }
+  }
+}
