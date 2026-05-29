@@ -39,8 +39,6 @@ projects:
                 value: INFO
               - key: SECRET_KEY
                 generateValue: true
-              - key: INIT_PASSWORD
-                sync: false
               - key: CONSOLE_API_URL
                 fromService:
                   name: dify-api

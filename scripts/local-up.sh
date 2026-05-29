@@ -5,7 +5,7 @@ cd "$(dirname "$0")/.."
 echo "Starting Dify (template-shaped local stack)..."
 echo "  UI:  http://localhost:3000"
 echo "  API: http://localhost:5001"
-echo "  First-time password (INIT_PASSWORD): difyai123456"
+echo "  Open /install on first visit to create the admin account."
 echo ""
 
 docker compose -f docker-compose.local.yml pull

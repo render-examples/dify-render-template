@@ -4,7 +4,7 @@
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)
 
-This template packages [Dify](https://github.com/langgenius/dify) for Render using official `langgenius/dify-api` and `langgenius/dify-web` Docker images. You get a production-shaped split stack (API, worker, web UI, Postgres, Redis-compatible Key Value) without building the upstream monorepo on Render. Fork the template into your GitHub account, apply the Blueprint, set an initial admin password, then open the web console URL.
+This template packages [Dify](https://github.com/langgenius/dify) for Render using official `langgenius/dify-api` and `langgenius/dify-web` Docker images. You get a production-shaped split stack (API, worker, web UI, Postgres, Redis-compatible Key Value) without building the upstream monorepo on Render. Fork the template into your GitHub account, apply the Blueprint, then open the web console URL to create your admin account.
 
 > **Gallery assets:** Add `assets/hero.png` (1600×900) and `assets/logo.png` before submitting to the Render template catalog. See [assets/README.md](./assets/README.md).
 
@@ -78,11 +78,10 @@ Image pin: **1.14.2** (`langgenius/dify-api`, `langgenius/dify-web`).
 ## Quickstart
 
 1. Click **[Deploy to Render](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)**. GitHub creates a fork of this template in your account.
-2. In the Blueprint Apply screen, set **`INIT_PASSWORD`** (first admin password for the Dify console).
-3. Review the generated **`SECRET_KEY`** (auto-created; do not change after first deploy).
-4. Click **Apply**. First deploy typically takes **15–25 minutes** (Postgres, Key Value, three compute services, disk attach, migrations).
-5. Open the **`dify-web`** service URL (`https://dify-web-xxxx.onrender.com`). Sign in with the email you register and the password from `INIT_PASSWORD`.
-6. In **Settings → Model Provider**, add at least one LLM API key (OpenAI, Anthropic, etc.) to run apps.
+2. Review the generated **`SECRET_KEY`** (auto-created; do not change after first deploy).
+3. Click **Apply**. First deploy typically takes **15–25 minutes** (Postgres, Key Value, three compute services, disk attach, migrations).
+4. Open the **`dify-web`** service URL (`https://dify-web-xxxx.onrender.com/install`). Create your admin account (email, name, password).
+5. In **Settings → Model Provider**, add at least one LLM API key (OpenAI, Anthropic, etc.) to run apps.
 
 ---
 
@@ -90,9 +89,7 @@ Image pin: **1.14.2** (`langgenius/dify-api`, `langgenius/dify-web`).
 
 ### Required secrets
 
-| Env var | Service | What it's for | How to get it |
-|---------|---------|---------------|---------------|
-| `INIT_PASSWORD` | `dify-api` | Initial admin password | Choose a strong password during Blueprint Apply |
+None at Blueprint apply time. First-run admin credentials are set in the Dify install wizard after deploy.
 
 ### Auto-generated secrets
 
@@ -119,6 +116,7 @@ Image pin: **1.14.2** (`langgenius/dify-api`, `langgenius/dify-web`).
 | Env var | Default | Notes |
 |---------|---------|-------|
 | `LOG_LEVEL` | `INFO` | Set `DEBUG` only when troubleshooting |
+| `INIT_PASSWORD` | unset | Optional deploy gate on `dify-api`; not recommended on split `*.onrender.com` hosts (see Troubleshooting) |
 | `STORAGE_TYPE` | `opendal` + `fs` | Switch to `s3` and set `S3_*` for durable multi-instance storage |
 | `OPENAI_API_KEY` | unset | Can set in Dashboard or only in Dify UI |
 | Image tag in `render.yaml` | `1.14.2` | Pin to another [release tag](https://github.com/langgenius/dify/releases) |
@@ -221,6 +219,10 @@ Follow upstream release notes. Database migrations run when `MIGRATION_ENABLED=t
 
 The API container likely OOM on **Starter**. Upgrade **`dify-api`** to **Standard** (this template already uses Standard).
 
+### Init password page loops or returns to the same screen
+
+This template does **not** set `INIT_PASSWORD` (same as upstream self-hosted defaults). If you add it manually on `dify-api`, Dify shows a deployment password gate before admin setup. On split Render hosts (`dify-web` and `dify-api` on different subdomains), that gate often fails to persist its session cookie and loops. Remove `INIT_PASSWORD` from `dify-api` and use `/install` to create your admin account instead.
+
 ### Health check fails / 502 on dify-web
 
 - Confirm **`dify-api`** is `live` and `/health` returns 200.
@@ -266,7 +268,7 @@ Confirm the tag exists on [Docker Hub](https://hub.docker.com/u/langgenius). Use
 
 - **TLS:** Render terminates TLS on public URLs.
 - **Network:** Postgres and Key Value use private networking; `ipAllowList: []` keeps them off the public internet.
-- **Secrets:** Set `INIT_PASSWORD` only during Apply; store LLM keys in Dashboard or Dify's encrypted store.
+- **Secrets:** Store LLM keys in Dashboard or Dify's encrypted store after setup.
 - **Rotation:** Rotating `SECRET_KEY` invalidates sessions; plan maintenance windows.
 - **Vulnerabilities:** Report upstream issues to [langgenius/dify](https://github.com/langgenius/dify/security). Update image tags for patched releases.
 
@@ -278,7 +280,6 @@ Confirm the tag exists on [Docker Hub](https://hub.docker.com/u/langgenius). Use
 - **Single API disk:** Uploads live on one disk attached to **`dify-api`**. Workers do not share that disk; use S3 for multi-instance or large file workloads.
 - **No bundled sandbox / plugin daemon:** Advanced self-hosted features from full `docker compose` may need extra services you add yourself.
 - **Region pinned in Blueprint:** All resources deploy to **Oregon** unless you edit `render.yaml`.
-- **INIT_PASSWORD:** Set at deploy time; use Dify's account flows after setup for additional users.
 
 ---
 

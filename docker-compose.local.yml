@@ -7,7 +7,6 @@ x-dify-api-env: &dify-api-env
   MIGRATION_ENABLED: "true"
   LOG_LEVEL: INFO
   SECRET_KEY: local-dev-secret-key-change-in-production
-  INIT_PASSWORD: difyai123456
   CONSOLE_API_URL: http://localhost:5001
   CONSOLE_WEB_URL: http://localhost:3000
   SERVICE_API_URL: http://localhost:5001

@@ -16,7 +16,7 @@
     { "type": "postgres", "plan": "basic-256mb", "notes": "app data + pgvector" },
     { "type": "disk", "sizeGB": 10, "notes": "API uploads at /app/api/storage" }
   ],
-  "required_secrets": ["INIT_PASSWORD"],
+  "required_secrets": [],
   "generated_secrets": ["SECRET_KEY"],
   "contact_email": ""
 }
