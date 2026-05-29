@@ -137,7 +137,7 @@ projects:
               - key: OPENDAL_SCHEME
                 value: fs
               - key: OPENDAL_FS_ROOT
-                value: storage
+                value: /app/api/storage
 
           # ── Celery worker ─────────────────────────────────────────────────
           - type: worker
@@ -223,7 +223,7 @@ projects:
               - key: OPENDAL_SCHEME
                 value: fs
               - key: OPENDAL_FS_ROOT
-                value: storage
+                value: /app/api/storage
 
           # ── Web console (Next.js) ───────────────────────────────────────────
           - type: web
