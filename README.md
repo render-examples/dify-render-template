@@ -6,7 +6,9 @@
 
 This template packages [Dify](https://github.com/langgenius/dify) for Render using official `langgenius/dify-api` and `langgenius/dify-web` Docker images. You get a production-shaped split stack (API, worker, web UI, Postgres, Redis-compatible Key Value) without building the upstream monorepo on Render. Fork the template into your GitHub account, apply the Blueprint, then open the web console URL to create your admin account.
 
-> **Gallery assets:** Add `assets/hero.png` (1600×900) and `assets/logo.png` before submitting to the Render template catalog. See [assets/README.md](./assets/README.md).
+![Dify console on Render](./assets/hero.png)
+
+> **Gallery listing:** GitHub repo is live at [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template). Catalog entry pending Sanity CMS — see [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md). Add `assets/hero.png` before submit.
 
 ---
 
@@ -287,16 +289,8 @@ Confirm the tag exists on [Docker Hub](https://hub.docker.com/u/langgenius). Use
 
 - **Upstream:** [langgenius/dify](https://github.com/langgenius/dify) (Apache-2.0)
 - **Template:** [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template) (MIT wrapper; see [LICENSE](./LICENSE))
-- **Publish:** See [gallery-metadata.json](./gallery-metadata.json) for catalog submission fields
+- **Gallery submission:** [gallery-metadata.json](./gallery-metadata.json), [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md)
 
 ### Publish under render-examples
 
-```bash
-gh repo create render-examples/dify-render-template --public \
-  --source=render-templates/dify-render-template --push \
-  --description "One-click Dify on Render"
-
-gh api -X PATCH repos/render-examples/dify-render-template -f is_template=true
-```
-
-Then confirm the Deploy button uses `template_repo=dify-render-template` and run a smoke deploy from a clean Render account.
+Already published. To update the repo, push to `render-examples/dify-render-template`. To appear on [render.com/templates](https://render.com/templates), complete [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md).
