@@ -10,8 +10,8 @@ Use when filing a **production** catalog entry for [render.com/templates](https:
 
 ## Blockers before submit
 
-- [ ] Capture **`assets/hero.png`** (1600×900) from a live deploy (Dify install wizard or console home)
-- [ ] Paste README into Sanity `markdownBody` (keep in sync with GitHub `README.md`)
+- [x] **`assets/hero.png`** placeholder committed (replace with live deploy screenshot before production)
+- [ ] Sanity **development** draft in Studio (see [`../sanity-drafts/STUDIO-WALKTHROUGH.md`](../sanity-drafts/STUDIO-WALKTHROUGH.md))
 - [ ] Smoke deploy from a account that does not own `render-examples/dify-render-template`
 
 ---
