@@ -4,6 +4,8 @@
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)
 
+**Template repository:** [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template)
+
 This repo is the **full [Dify](https://github.com/langgenius/dify) application** (API, web, worker sources at tag **1.14.2**) plus a Render Blueprint. Deploy uses official `langgenius/dify-api` and `langgenius/dify-web` Docker images: no multi-GB build on Render unless you change `render.yaml` to build from source.
 
 ![Dify console on Render](./assets/hero.png)
