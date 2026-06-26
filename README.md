@@ -2,9 +2,9 @@
 
 > One-click self-hosted Dify: build LLM apps, RAG pipelines, and agent workflows with managed Postgres (pgvector), Key Value, and a Celery worker.
 
-<a href="https://render.com/deploy?repo=https://github.com/render-examples/dify-render-template">
-  <img src="https://render.com/images/deploy-to-render-button.svg" alt="Deploy to Render" height="32">
-</a>
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)
+
+**Template repository:** [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template)
 
 This repo is the **full [Dify](https://github.com/langgenius/dify) application** (API, web, worker sources at tag **1.14.2**) plus a Render Blueprint. Deploy uses official `langgenius/dify-api` and `langgenius/dify-web` Docker images: no multi-GB build on Render unless you change `render.yaml` to build from source.
 
@@ -16,11 +16,13 @@ This repo is the **full [Dify](https://github.com/langgenius/dify) application**
 
 ## Deploy
 
-1. Click **Deploy to Render** above. Render opens the Blueprint Apply screen for [`render.yaml`](./render.yaml) in this repo.
-2. Confirm the six resources (`dify-api`, `dify-worker`, `dify-web`, `dify-kv`, `dify-db`, disk). `SECRET_KEY` is auto-generated.
+1. Click **[Deploy to Render](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)** and fork into your GitHub account.
+2. On the Blueprint Apply screen, confirm the six resources (`dify-api`, `dify-worker`, `dify-web`, `dify-kv`, `dify-db`, disk). `SECRET_KEY` is auto-generated.
 3. Click **Apply**. First deploy typically takes **15–25 minutes**.
 4. Open the **`dify-web`** URL (`https://dify-web-xxxx.onrender.com/install`) and create your admin account.
 5. In **Settings → Model Provider**, add at least one LLM API key.
+
+Do **not** use GitHub's **Use this template** button alone: that only copies the repo on GitHub and does not start a Render deploy.
 
 ---
 
@@ -94,7 +96,7 @@ Image pin: **1.14.2** (`langgenius/dify-api`, `langgenius/dify-web`).
 
 Same steps as [Deploy](#deploy) above. Summary:
 
-1. Click **[Deploy to Render](https://render.com/deploy?repo=https://github.com/render-examples/dify-render-template)** and complete Blueprint Apply.
+1. **[Deploy to Render](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)** → fork into your GitHub account → Blueprint Apply.
 2. Open **`dify-web`** after services are live and finish Dify install.
 3. Add a model provider key in the console.
 
@@ -162,7 +164,7 @@ Free instance types are not used in this template: Dify API and worker need more
 
 ### Pin a different Dify version
 
-Edit `image.url` in `render.yaml` for `dify-api`, `dify-worker`, and `dify-web` to the same tag (e.g. `1.14.2` → `1.15.0`). Connect this repo in Render (or your fork) and trigger **Manual Deploy** on each service.
+Edit `image.url` in `render.yaml` for `dify-api`, `dify-worker`, and `dify-web` to the same tag (e.g. `1.14.2` → `1.15.0`). Push to your fork and trigger **Manual Deploy** on each service.
 
 ### Custom domain
 
@@ -269,13 +271,13 @@ Confirm the tag exists on [Docker Hub](https://hub.docker.com/u/langgenius). Use
 
 **Can I use one service?** Not with official images. A single container would require a custom Dockerfile combining processes, which this template avoids.
 
-**Do I need to fork this repo?** No for the default deploy. The button deploys from `render-examples/dify-render-template`. Fork on GitHub only if you want to maintain a custom `render.yaml` in your own account.
+**Do I need to fork this repo?** The one-click flow forks into **your** GitHub account automatically. You edit `render.yaml` in your fork.
 
 **Where do I add OpenAI / Anthropic keys?** In the Dify console (**Settings → Model Provider**) or as env vars on **`dify-api`** per [Dify docs](https://docs.dify.ai/).
 
-**Is this the same as the Blueprint in langgenius/dify?** Upstream ships a flat `render.yaml` with manual URL env vars. This repo uses `projects:` grouping, Key Value type, and automatic URL wiring.
+**Is this the same as the Blueprint in langgenius/dify?** Upstream ships a flat `render.yaml` with manual URL env vars. This template uses the gallery fork flow, `projects:` grouping, Key Value type, and automatic URL wiring.
 
-**Can I deploy from upstream directly?** Yes: `https://render.com/deploy?repo=https://github.com/langgenius/dify`.
+**Can I deploy from upstream directly?** Yes: `https://render.com/deploy?repo=https://github.com/langgenius/dify`. That uses the Blueprint deploy flow, not the template fork flow.
 
 ---
 
