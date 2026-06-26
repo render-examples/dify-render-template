@@ -10,8 +10,6 @@ This repo is the **full [Dify](https://github.com/langgenius/dify) application**
 
 **At a glance:** ~$75–85/mo (Oregon) · first deploy ~15–25 min · no LLM keys at Apply time
 
-> **Gallery listing:** Catalog entry pending Sanity CMS — see [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md).
-
 ---
 
 ## Deploy
@@ -315,4 +313,3 @@ Confirm the tag exists on [Docker Hub](https://hub.docker.com/u/langgenius). Use
 - **Upstream product README:** [docs/README-product.md](./docs/README-product.md) (langgenius/dify)
 - **Upstream:** [langgenius/dify](https://github.com/langgenius/dify) (Apache-2.0)
 - **Template:** [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template)
-- **Gallery submission:** [gallery-metadata.json](./gallery-metadata.json), [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md)
