@@ -1,6 +1,7 @@
 # yaml-language-server: $schema=https://render.com/schema/render.yaml.json
 #
-# Dify on Render — one-click template (gallery)
+# Dify on Render — one-click gallery template
+# Repo: https://github.com/render-examples/dify-render-template
 # Upstream: https://github.com/langgenius/dify
 # Images: https://hub.docker.com/u/langgenius
 #

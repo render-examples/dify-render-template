@@ -2,17 +2,9 @@
 
 Use when filing a **production** catalog entry for [render.com/templates](https://render.com/templates).
 
-**GitHub repo (ready):** https://github.com/render-examples/dify-render-template  
+**GitHub repo:** https://github.com/render-examples/dify-render-template  
 **One-click deploy:** `https://render.com/deploy-template/api/github/start?template_repo=dify-render-template`  
 **Gallery URL (target):** `https://render.com/templates/dify`
-
----
-
-## Blockers before submit
-
-- [x] **`assets/hero.png`** placeholder committed (replace with live deploy screenshot before production)
-- [ ] Sanity **development** draft in Studio (see [`../sanity-drafts/STUDIO-WALKTHROUGH.md`](../sanity-drafts/STUDIO-WALKTHROUGH.md))
-- [ ] Smoke deploy from a account that does not own `render-examples/dify-render-template`
 
 ---
 
@@ -37,17 +29,7 @@ Create document: **Templates** → new document
 
 ## gallery-metadata.json
 
-Already at [`gallery-metadata.json`](./gallery-metadata.json). Attach to the handoff email/ticket.
-
----
-
-## Local preview
-
-See [`LOCAL_GALLERY_PREVIEW.md`](./LOCAL_GALLERY_PREVIEW.md):
-
-1. `bun run dev` in `renderinc/website`
-2. `bun run sanity:dev` → **development** dataset
-3. Create draft with slug `dify` → Preview → `http://localhost:3000/templates/dify`
+Attach [`gallery-metadata.json`](./gallery-metadata.json) to the handoff email or ticket.
 
 ---
 

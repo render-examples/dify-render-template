@@ -4,11 +4,13 @@
 
 [![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)
 
+**Repository:** [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template)
+
 This template packages [Dify](https://github.com/langgenius/dify) for Render using official `langgenius/dify-api` and `langgenius/dify-web` Docker images. You get a production-shaped split stack (API, worker, web UI, Postgres, Redis-compatible Key Value) without building the upstream monorepo on Render. Fork the template into your GitHub account, apply the Blueprint, then open the web console URL to create your admin account.
 
 ![Dify console on Render](./assets/hero.png)
 
-> **Gallery listing:** GitHub repo is live at [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template). Catalog entry pending Sanity CMS — see [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md). Add `assets/hero.png` before submit.
+> **Gallery listing:** Catalog entry pending Sanity CMS — see [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md).
 
 ---
 
@@ -290,7 +292,3 @@ Confirm the tag exists on [Docker Hub](https://hub.docker.com/u/langgenius). Use
 - **Upstream:** [langgenius/dify](https://github.com/langgenius/dify) (Apache-2.0)
 - **Template:** [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template) (MIT wrapper; see [LICENSE](./LICENSE))
 - **Gallery submission:** [gallery-metadata.json](./gallery-metadata.json), [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md)
-
-### Publish under render-examples
-
-Already published. To update the repo, push to `render-examples/dify-render-template`. To appear on [render.com/templates](https://render.com/templates), complete [SANITY-SUBMISSION.md](./SANITY-SUBMISSION.md).
