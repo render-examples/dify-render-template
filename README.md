@@ -6,9 +6,6 @@
 
 **Template repository:** [render-examples/dify-render-template](https://github.com/render-examples/dify-render-template)
 
-**Deploy URL (no personal forks in the link):** `https://render.com/deploy-template/api/github/start?template_repo=dify-render-template`  
-Render always forks from **`render-examples/dify-render-template`**. If you later see `ojusave/dify-render-template-xxxxx` (or similar), that is your **copy** in your GitHub account after you click Deploy, not the template source.
-
 This repo is the **full [Dify](https://github.com/langgenius/dify) application** (API, web, worker sources at tag **1.14.2**) plus a Render Blueprint. Deploy uses official `langgenius/dify-api` and `langgenius/dify-web` Docker images: no multi-GB build on Render unless you change `render.yaml` to build from source.
 
 ![Dify console on Render](./assets/hero.png)
@@ -19,16 +16,13 @@ This repo is the **full [Dify](https://github.com/langgenius/dify) application**
 
 ## Deploy
 
-Use the **Deploy to Render** button above. Do **not** use GitHub's green **Use this template** button alone: that only copies the repo on GitHub and does not start a Render deploy.
+1. Click **[Deploy to Render](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)** and fork into your GitHub account.
+2. On the Blueprint Apply screen, confirm the six resources (`dify-api`, `dify-worker`, `dify-web`, `dify-kv`, `dify-db`, disk). `SECRET_KEY` is auto-generated.
+3. Click **Apply**. First deploy typically takes **15–25 minutes**.
+4. Open the **`dify-web`** URL (`https://dify-web-xxxx.onrender.com/install`) and create your admin account.
+5. In **Settings → Model Provider**, add at least one LLM API key.
 
-1. Click **[Deploy to Render](https://render.com/deploy-template/api/github/start?template_repo=dify-render-template)**.
-2. Authorize the Render GitHub App if prompted, then pick **your personal GitHub account** (not `render-examples`). Render creates `<your-account>/dify-render-template` from this template.
-3. On the Blueprint Apply screen, confirm the six resources (`dify-api`, `dify-worker`, `dify-web`, `dify-kv`, `dify-db`, disk). `SECRET_KEY` is auto-generated.
-4. Click **Apply**. First deploy typically takes **15–25 minutes**.
-5. Open the **`dify-web`** URL (`https://dify-web-xxxx.onrender.com/install`) and create your admin account.
-6. In **Settings → Model Provider**, add at least one LLM API key.
-
-The connected Git repo in Render should be **`your-username/dify-render-template`**, not `render-examples/dify-render-template`. If you only land on the org repo page on GitHub, you clicked the wrong control or need to finish the Render OAuth flow.
+Do **not** use GitHub's **Use this template** button alone: that only copies the repo on GitHub and does not start a Render deploy.
 
 ---
 
@@ -237,25 +231,6 @@ Follow upstream release notes. Database migrations run when `MIGRATION_ENABLED=t
 ---
 
 ## Troubleshooting
-
-### Deploy opens GitHub with `ojusave/...` in the URL
-
-That is **expected** after you click Deploy while signed in as `ojusave`. Render's one-click flow:
-
-1. Reads **`render-examples/dify-render-template`** (hardcoded source org in Render's deploy service).
-2. Creates **`ojusave/dify-render-template-xxxxx`** in your account (your deploy copy).
-3. Opens the Render Blueprint apply screen connected to that copy.
-
-The badge link itself does **not** contain `ojusave/`. Right-click the badge → **Copy link** and confirm it is only `?template_repo=dify-render-template`.
-
-To test as a gallery user would, use a GitHub account that is **not** `ojusave` and is **not** in the `render-examples` org.
-
-### Deploy opens GitHub (`render-examples/dify-render-template`) instead of Render
-
-- Click the **Deploy to Render** badge or link, not **Repository** in the sidebar and not GitHub's **Use this template** button.
-- Complete Render GitHub OAuth and choose **your user account** as the fork destination.
-- If you are a member of `render-examples`, test from a GitHub account **outside** that org: org members may connect the org repo directly instead of getting a personal fork.
-- The one-click URL must be `?template_repo=dify-render-template`, not `?repo=https://github.com/render-examples/dify-render-template`.
 
 ### `No open ports detected` on dify-api
 
